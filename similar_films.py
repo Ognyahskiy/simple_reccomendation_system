@@ -16,7 +16,7 @@ def get_recommendations(path,id, cosine_sim):
 
     movie_indices = [i[0] for i in sim_scores]
 
-    return movie_indices
+    return movies['id'].iloc[movie_indices].values.tolist()
 
 path,id,cosine_sim=sys.argv[1],int(sys.argv[2]),np.load(sys.argv[3])
 films=get_recommendations(path,id,cosine_sim)
