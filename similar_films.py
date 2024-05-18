@@ -16,9 +16,9 @@ def get_recommendations(path,id, cosine_sim):
 
     movie_indices = [i[0] for i in sim_scores]
 
-    return movies
+    return movie_indices
 
-path,id,cosine_sim=sys.argv[1],sys.argv[2],sys.argv[3]
+path,id,cosine_sim=sys.argv[1],int(sys.argv[2]),np.load(sys.argv[3])
 films=get_recommendations(path,id,cosine_sim)
 print(films)
 sys.stdout.flush()
