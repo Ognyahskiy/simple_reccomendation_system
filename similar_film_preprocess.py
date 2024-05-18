@@ -3,6 +3,7 @@ import pandas as pd
 from ast import literal_eval
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+import sys
 def clean_data(x):
     if isinstance(x, list):
         return [str.lower(i.replace(" ", "")) for i in x]
@@ -33,4 +34,6 @@ def preprocess(path):
     cosine_sim2 = cosine_similarity(count_matrix, count_matrix)
     np.save('matrix',cosine_sim2)
     return
+path=sys.argv[1]
+preprocess(path)
 
