@@ -20,5 +20,5 @@ def get_recommendations(path,id, cosine_sim):
 
 path,id,cosine_sim=sys.argv[1],int(sys.argv[2]),np.load(sys.argv[3])
 films=get_recommendations(path,id,cosine_sim)
-print(films)
-sys.stdout.flush()
+df=pd.DataFrame(data=prediction,columns=["id"])
+df.to_csv('similar_results.csv',index=False)
