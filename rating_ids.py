@@ -14,5 +14,4 @@ top_predictions = sorted(predictions, key=lambda x: x.est, reverse=True)[:10]
 prediction=[]
 for pred in top_predictions:
     prediction.append(pred.iid)
-df=pd.DataFrame(data=prediction,columns=["id"])
-df.to_csv('reccomend_results.csv',index=False)
+print(prediction)
