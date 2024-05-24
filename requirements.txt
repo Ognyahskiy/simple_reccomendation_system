@@ -2,3 +2,5 @@ pandas
 numpy
 scikit-learn
 scikit-surprise
+flask
+python-dotenv
