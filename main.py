@@ -26,11 +26,7 @@ def clean_data(x):
 def create_all(x):
     return (
         " ".join(x["tags"])
-        + " "
-        + " ".join(x["actors"])
-        + " "
-        + x["director"]
-        + " ".join(x["genres"])
+        + " ".join(x["genre"])
     )
 
 
@@ -38,10 +34,10 @@ def create_all(x):
 def preprocess():
     path=os.getenv('MOVIES')
     movies=pd.read_csv(path)
-    features = ["actors", "tags","genres"]
+    features = ["tags","genre"]
     for feature in features:
         movies[feature] = movies[feature].apply(literal_eval)
-    features = ["actors", "tags","genres","director"]
+    features = ["tags","genre"]
     for feature in features:
         movies[feature] = movies[feature].apply(clean_data)
     movies["all"] = movies.apply(create_all, axis=1)
@@ -51,7 +47,7 @@ def preprocess():
     np.save('matrix',cosine_sim)
     return "Done preprocessing movies"
 
-@app.route('/similar_ids', methods=['GET'], endpoint='get_recommendations')
+@app.route('/similar_ids', methods=['POST'], endpoint='get_recommendations')
 def get_recommendations():
     data=request.json
     id=data.get('id')
@@ -87,7 +83,7 @@ def recomend_prep():
     dump.dump('algo',algo=algo)
     return "Algo done"
 
-@app.route('/recommend', methods=['GET'], endpoint='recommend')
+@app.route('/recommend', methods=['POST'], endpoint='recommend')
 def reccomend_id():
     path=os.getenv('RATINGS')
     algo=os.getenv('RECOMMEND_ALGO')
@@ -105,4 +101,4 @@ def reccomend_id():
         prediction.append(int(pred.iid))
     return jsonify(prediction)
 
-app.run(host='127.0.0.1', port=3000)
+app.run(host='0.0.0.0', port=3000)
